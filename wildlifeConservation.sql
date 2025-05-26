@@ -128,7 +128,7 @@ SELECT * FROM sightings WHERE "location" ILIKE '%pass%';
 -- problem 4 --
 SELECT full_name, count(*) as total_sightings
 from sightings
-    JOIN rangers on sightings.ranger_id = rangers.ranger_id
+    JOIN rangers on sightings.species_id = rangers.ranger_id
 GROUP BY
     full_name;
 
