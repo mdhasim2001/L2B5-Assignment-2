@@ -99,3 +99,38 @@ WHERE salary BETWEEN 50000 AND 100000;
 WHERE is the best powerful clause in PostgreSQL for SELECT statement and for any filter in record. this is the most powerful filtering mechanism. WHERE ক্লোজ ব্যবহার করে অনেক সহজে ডাটা ফিল্ডার করে আনা যায় ক্লাইন্ট রিকোয়ারমেন্ট অনুযায়ী।
 
 এ থেকে বলা যায় যে WHERE ক্লথ হল PostgreSQL এর SELECT স্টেটমেন্টের একটি শর্তসাপেক্ষ ফিল্টারিং মেকানিজম।
+
+
+5. How can you calculate aggregate functions like COUNT(), SUM(), and AGV() in postgreSQL
+
+aggregate functions এর মাধ্যমে একটি টেবিল থেকে বিভিন্ন ধরনের বিভিন্নভাবে ক্যালকুলেট করা যায়। 
+
+ধরা যাক আমার কাছে একটি কোম্পানির কর্মকর্তাদের টেবিল আছে এবং সেই টেবিলে তাদের নাম সেলারি বয়স চাকরিতে প্রবেশ করার ডেট এবং আরও অনেক ইনফরমেশন রেকর্ড আছে। 
+
+--COUNT()--
+এই কোম্পানিতে কতজন এমপ্লয় আছে তা বের কর 
+SELECT COUNT(*) FROM employee table;
+
+এখন বলা হলো শর্ত হিসেবে যে ৫০ হাজার টাকার উপর কতজন এম্প্লয় আছে তাদের তালিকা বের কর 
+SELECT COUNT(*) FROM employee table
+   WHERE salary > 50000;
+
+--SUM()--
+এই কোম্পানিতে প্রতি মাসে কত টাকা স্যালারি দেওয়া হয় এমপ্লয়ীদের তা বের কর 
+SELECT SUM(salary) FROM employee table;
+
+এছাড়াও বলা হলো যে এই কোম্পানিতে যারা ম্যানেজার পদে আছে তাদের প্রতি মাসে কত টাকা স্যালারি দেওয়া হয় 
+SELECT SUM(salary) FROM employee table
+   WHERE dept = 'manager';
+
+--AVG()--
+এই কোম্পানিতে প্রতি মাসে সবার গড় বেতন কত বের কর 
+SELECT AVG(salary) FROM employee table;
+
+এই কোম্পানিতে সবার গড় বয়স কত 
+SELECT AVG(age) FROM employee table;
+
+যাদের বয়স গড় বয়স ২১ বছরের উপরে তাদের নাম এবং সেলারি তালিকা বের কর 
+SELECT full_name, salary, AVG(age) AS avg_age FROM employee table
+    WHERE avg_age > 21;
+
