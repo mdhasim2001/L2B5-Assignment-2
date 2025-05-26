@@ -18,8 +18,8 @@ CREATE Table species (
 
 CREATE Table sightings (
     sighting_id SERIAL PRIMARY KEY,
-    ranger_id INT REFERENCES rangers (ranger_id) NOT NULL,
     species_id INT REFERENCES species (species_id) NOT NULL,
+    ranger_id INT REFERENCES rangers (ranger_id) NOT NULL,
     sighting_time TIMESTAMP NOT NULL,
     "location" VARCHAR(100) NOT NULL,
     notes TEXT
@@ -73,8 +73,8 @@ VALUES (
 
 INSERT INTO
     sightings (
-        ranger_id,
         species_id,
+        ranger_id,
         "location",
         sighting_time,
         notes
@@ -85,7 +85,8 @@ VALUES (
         'Peak Ridge',
         '2024-05-10 07:45:00',
         'Camera trap image captured'
-    ) (
+    ),
+    (
         2,
         2,
         'Bankwood Area',
@@ -128,7 +129,7 @@ SELECT * FROM sightings WHERE "location" ILIKE '%pass%';
 -- problem 4 --
 SELECT full_name, count(*) as total_sightings
 from sightings
-    JOIN rangers on sightings.species_id = rangers.ranger_id
+    JOIN rangers on sightings.ranger_id = rangers.ranger_id
 GROUP BY
     full_name;
 
